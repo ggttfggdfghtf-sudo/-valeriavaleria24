@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Разбор блога kleroni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;600;700;800&display=swap">
+<style>
+:root{
+  --bg:#F6F1EC; --bg2:#EDE4DB; --card:#FFFFFF; --ink:#2A1F1B; --ink2:#6B5B53; --line:#E2D6CB;
+  --coral:#C4532B; --coral-soft:#F8E3D8; --rose:#2E5A50; --peach:#C9A28A; --on-coral:#fff;
+  --sun1:#F6B26B; --sun2:#D9602F; --sun3:#7A2E3A; --shadow:0 18px 40px -26px rgba(110,50,25,.45);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#17120F; --bg2:#211915; --card:#2A201B; --ink:#F4ECE6; --ink2:#BBA89C; --line:#3A2D26;
+  --coral:#EE7A4C; --coral-soft:#3E2418; --rose:#7FBFAE; --peach:#8C6E5C; --on-coral:#17120F;
+  --sun1:#E2995A; --sun2:#C2522A; --sun3:#5E2230; --shadow:0 18px 40px -26px rgba(0,0,0,.7); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#17120F; --bg2:#211915; --card:#2A201B; --ink:#F4ECE6; --ink2:#BBA89C; --line:#3A2D26;
+  --coral:#EE7A4C; --coral-soft:#3E2418; --rose:#7FBFAE; --peach:#8C6E5C; --on-coral:#17120F;
+  --sun1:#E2995A; --sun2:#C2522A; --sun3:#5E2230; --shadow:0 18px 40px -26px rgba(0,0,0,.7); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding-inline:20px;padding-block:0 80px}
+h1,h2,h3{font-family:'Lora',Georgia,serif;font-weight:600;letter-spacing:-.01em;text-wrap:balance;margin:0}
+em{font-family:'Lora',Georgia,serif;font-style:italic;font-weight:500;color:var(--coral)}
+.label{font-size:12px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--coral)}
+.hero{position:relative;padding-block:72px 48px;display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:center}
+.hero h1{font-size:clamp(40px,7vw,72px);line-height:1.04;margin-top:14px}
+.hero p{color:var(--ink2);font-size:18px;max-width:46ch;margin:20px 0 0}
+.sun{aspect-ratio:1;max-width:100%;width:340px;justify-self:center;border-radius:50%;background:radial-gradient(circle at 50% 62%,var(--sun1) 0%,var(--sun2) 48%,var(--sun3) 78%,transparent 79%);position:relative}
+.sun::after{content:"подарок от команды Маши ✦";position:absolute;left:-10px;bottom:6%;background:var(--card);color:var(--coral);font-family:'Lora',serif;font-style:italic;font-size:17px;padding:12px 18px;border-radius:6px;box-shadow:var(--shadow);transform:rotate(-5deg)}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin-inline:-20px;padding:10px 20px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{display:inline-block;color:var(--ink2);text-decoration:none;font-size:14px;font-weight:600;padding:6px 12px;border-radius:999px}
+nav a:hover{background:var(--coral-soft);color:var(--coral)}
+section{padding-top:64px;scroll-margin-top:60px}
+section>h2{font-size:clamp(28px,4.4vw,42px);line-height:1.15;margin-top:10px}
+section>.lead{color:var(--ink2);max-width:62ch;margin:14px 0 0}
+.grid{display:grid;gap:16px;margin-top:28px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:var(--shadow);min-width:0}
+.card h3{font-size:22px;margin-top:14px;line-height:1.25}
+.card p{margin:8px 0 0;color:var(--ink2);font-size:16px}
+.card.hot{background:var(--coral);border-color:var(--coral)}
+.card.hot h3,.card.hot p,.card.hot .pin,.card.hot li{color:var(--on-coral)}
+.card.hot .label{color:var(--on-coral)}
+.card.hot .ic{background:color-mix(in srgb,var(--on-coral) 22%,transparent);color:var(--on-coral)}
+.ic{width:52px;height:52px;border-radius:16px;background:var(--coral-soft);color:var(--coral);display:flex;align-items:center;justify-content:center}
+.ic svg{width:28px;height:28px}
+.big{font-family:'Lora',serif;font-size:44px;line-height:1;color:var(--coral);font-variant-numeric:tabular-nums}
+.note{margin-top:22px;padding:18px 22px;border-left:3px solid var(--coral);background:var(--bg2);border-radius:0 14px 14px 0;color:var(--ink2)}
+.pin{font-size:16px;line-height:1.7;white-space:pre-line;color:var(--ink)}
+.ideas ol{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:12px;counter-reset:i}
+.ideas li{counter-increment:i;display:grid;grid-template-columns:34px 1fr;gap:8px;font-size:15.5px;line-height:1.45}
+.ideas li::before{content:counter(i,decimal-leading-zero);font-family:'Lora',serif;font-weight:600;color:var(--coral)}
+.check{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:12px}
+.check li{display:flex;gap:12px;align-items:flex-start;cursor:pointer;user-select:none;font-size:15.5px;line-height:1.45}
+.check li::before{content:"";flex:none;width:20px;height:20px;margin-top:2px;border-radius:6px;border:2px solid var(--coral)}
+.check li b{display:block;color:var(--ink)}
+.check li span{color:var(--ink2)}
+.check li.done{opacity:.55}
+.check li.done b{text-decoration:line-through}
+.check li.done::before{background:var(--coral);box-shadow:inset 0 0 0 3px var(--card)}
+.flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:28px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0}
+.step b{font-family:'Lora',serif;font-size:20px;color:var(--coral)}
+.step p{margin:6px 0 0;color:var(--ink2);font-size:15px}
+.final{margin-top:72px;padding:40px 32px;border-radius:28px;background:linear-gradient(140deg,var(--coral-soft),var(--bg2));border:1px solid var(--line)}
+.final h2{font-size:clamp(28px,4.4vw,40px)}
+.final p{max-width:60ch;color:var(--ink2)}
+.small{font-size:14px;color:var(--ink2)}
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr;padding-top:40px}.sun{width:220px}
+  .g2,.g3,.flow{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <div class="label">разбор блога · лично для тебя</div>
+      <h1>Лера, у тебя уже <em>был ролик на 10,7 млн</em></h1>
+      <p>Instagram @kleroni_. Сначала о том, что у тебя уже сильно, потом — что мешает расти и как снимать ближайшие две недели.</p>
+    </div>
+    <div class="sun" aria-hidden="true"></div>
+  </header>
+
+  <nav aria-label="Разделы">
+    <a href="#good">Что уже есть</a><a href="#grow">Что мешает</a><a href="#viral">После вирусного</a><a href="#pos">Позиционирование</a><a href="#profile">Профиль</a><a href="#rubrics">Рубрики</a><a href="#hooks">Обложки</a><a href="#plan">План на 2 недели</a>
+  </nav>
+
+  <section id="good">
+    <div class="label">что у тебя уже есть</div>
+    <h2>Хороший фундамент — <em>его не надо придумывать</em></h2>
+    <div class="grid g3">
+      <div class="card hot"><div class="big">10,7 млн</div><h3>Доказанный потенциал</h3><p>Это не случайность. Алгоритм уже показывал тебя миллионам — значит, может снова, когда попадаешь в нужную энергию.</p></div>
+      <div class="card"><div class="ic" data-i="sun"></div><h3>Ты хорошо смотришься в кадре</h3><p>Рыжие волосы, внешность — это магнит. Эстетичные ролики (закат, белое платье) набирают заметно выше среднего.</p></div>
+      <div class="card"><div class="ic" data-i="smile"></div><h3>Естественность</h3><p>Ты выглядишь живой девушкой, а не вылизанным инфлюенсером. Это даёт доверие.</p></div>
+      <div class="card"><div class="ic" data-i="repeat"></div><h3>Юмор и самоирония</h3><p>Большая часть роликов — рофлы, и ты не боишься выглядеть смешно. Среди красивых девушек это редкость, и на этом контрасте можно расти.</p></div>
+      <div class="card"><div class="ic" data-i="pin"></div><h3>Ярославль</h3><p>Локальные бренды, кафе, мероприятия — самый быстрый вход в первую рекламу.</p></div>
+    </div>
+  </section>
+
+  <section id="grow">
+    <div class="label">что мешает расти</div>
+    <h2>Сейчас контент снимается <em>по наитию, а не по системе</em></h2>
+    <div class="grid g2">
+      <div class="card hot"><div class="ic" data-i="eye"></div><h3>Непонятно, зачем подписываться</h3><p>Аккаунт ощущается как «красивая девушка, которая что-то снимает». Шапка «Лайф, приколы» ничего не объясняет.</p></div>
+      <div class="card"><div class="ic" data-i="cal"></div><h3>Нет рубрик</h3><p>Каждый ролик сам по себе. Людям не за чем возвращаться, а алгоритму не за что зацепиться.</p></div>
+      <div class="card"><div class="ic" data-i="camera"></div><h3>Обложки не останавливают</h3><p>Самый сильный ролик понятен без звука и с первой секунды. Остальные требуют, чтобы человек уже начал смотреть.</p></div>
+      <div class="card"><div class="ic" data-i="pen"></div><h3>Длинный текст на экране</h3><p>В рилсах текст — главный инструмент удержания. Он должен быть коротким и цеплять.</p></div>
+    </div>
+    <p class="note">Ещё одна вещь: спокойные статичные ролики и анбоксинги заметно проседают на фоне сильных. Из-за этого аудитория не понимает, чего от тебя ждать.</p>
+  </section>
+
+  <section id="viral">
+    <div class="label">главная ошибка</div>
+    <h2>После вирусного ролика <em>нужно было продолжать</em></h2>
+    <p class="lead">После 10,7 млн охваты упали не случайно: дальше пошли спокойные эстетичные ролики, а алгоритм ждал того же ритма. В следующий раз, когда ролик залетит, действуй так:</p>
+    <div class="flow">
+      <div class="step"><b>1–3 дня</b><p>Снимаешь ещё 2–3 ролика в той же энергии: темп, движение, неожиданный поворот.</p></div>
+      <div class="step"><b>Неделя</b><p>Всего 5–7 роликов в похожем ключе. Новые люди видят: здесь такое снимают постоянно.</p></div>
+      <div class="step"><b>Дальше</b><p>Вплетаешь эстетику и лайф, но вирусный формат остаётся основой.</p></div>
+    </div>
+  </section>
+
+  <section id="pos">
+    <div class="label">позиционирование</div>
+    <h2>Ты уже снимаешь рофлы — <em>это и есть твоя тема</em></h2>
+    <p class="lead">Не нужно придумывать новый образ. Твоя фишка уже видна: красивая девушка, которая не боится выглядеть смешно и снимает жизненные ситуации, в которых все узнают себя. Осталось сделать так, чтобы это было понятно с первого взгляда на профиль.</p>
+    <div class="grid g3">
+      <div class="card hot"><div class="label">советуем</div><h3>Красивая, но несерьёзная</h3><p>Контраст внешности и рофлов. Сразу понятно, за чем подписываться, и можно иногда выкладывать красивый визуал — он не выбивается.</p></div>
+      <div class="card"><div class="label">вариант 2</div><h3>Жизненные рофлы</h3><p>Упор на ситуации «это же я». Самый простой путь к репостам и охватам.</p></div>
+      <div class="card"><div class="label">вариант 3</div><h3>Рыжая из Ярославля</h3><p>Те же рофлы, но с привязкой к городу. Удобно для местных брендов.</p></div>
+    </div>
+  </section>
+
+  <section id="profile">
+    <div class="label">шапка и хайлайты</div>
+    <h2>Профиль должен <em>объяснять тебя за 2 секунды</em></h2>
+    <div class="grid g2">
+      <div class="card"><div class="label">шапка — пример</div>
+        <p class="pin">Лера | Ярославль
+Красивая, но несерьёзная 🤪
+Рофлы про жизнь, в которых ты узнаешь себя
+📩 Сотрудничество</p>
+        <p class="small"><em>пиши своими словами</em></p></div>
+      <div class="card"><div class="label">хайлайты и закреп</div>
+        <p>Хайлайты: <b>Обо мне · Рофлы · Ярославль · Сотрудничество</b></p>
+        <p>В закреп — вирусный ролик на 10,7 млн и 1–2 самых смешных ролика. Человек заходит и сразу понимает, что тут будет.</p></div>
+    </div>
+  </section>
+
+  <section id="rubrics" class="ideas">
+    <div class="label">рубрики</div>
+    <h2>Три рубрики, <em>чтобы люди возвращались</em></h2>
+    <div class="grid g3">
+      <div class="card hot"><div class="label">рубрика 1</div><h3>«Когда…»</h3><p>Жизненные ситуации, в которых все узнают себя: «Когда подруга сказала "я на 5 минут"». Такие ролики пересылают друзьям.</p></div>
+      <div class="card"><div class="label">рубрика 2</div><h3>Ожидание vs реальность</h3><p>Сначала красиво, потом смешно. Твоя внешность работает на шутку, а не против неё.</p></div>
+      <div class="card"><div class="label">рубрика 3</div><h3>Играю всех сама</h3><p>«Типы девушек в…», «я и моя совесть» — одна ты в нескольких ролях. Формат, который хорошо разлетается.</p></div>
+    </div>
+  </section>
+
+  <section id="hooks">
+    <div class="label">обложки и первые секунды</div>
+    <h2>Мелочи, которые <em>решают охваты</em></h2>
+    <div class="grid g3">
+      <div class="card"><div class="ic" data-i="eye"></div><h3>Первые 1–1,5 секунды</h3><p>Движение, лицо крупно, текст или неожиданность. Без этого ролик листают.</p></div>
+      <div class="card"><div class="ic" data-i="pen"></div><h3>Текст — коротко и жирно</h3><p>3–6 слов. «Когда он сказал "я рядом"» работает лучше длинной фразы.</p></div>
+      <div class="card"><div class="ic" data-i="camera"></div><h3>Понятно без звука</h3><p>Как твой вирусный ролик: смысл ясен, даже если звук выключен.</p></div>
+      <div class="card"><div class="ic" data-i="repeat"></div><h3>Чередуй</h3><p>Динамичный → эстетичный → ситуация. Так и предсказуемо, и не скучно.</p></div>
+      <div class="card"><div class="ic" data-i="chat"></div><h3>Вопрос в конце</h3><p>«Угадай, чем закончилось?» — комментарии двигают ролик.</p></div>
+      <div class="card"><div class="ic" data-i="box"></div><h3>Меньше статики</h3><p>Чистые анбоксинги и спокойные кадры пока лучше отложить.</p></div>
+    </div>
+  </section>
+
+  <section id="plan">
+    <div class="label">контент-план</div>
+    <h2>Две недели, <em>5–6 рилсов в неделю</em></h2>
+    <p class="lead">Можно отмечать пункты прямо здесь.</p>
+    <div class="grid g2">
+      <div class="card"><div class="label">неделя 1</div><ul class="check">
+        <li><div><b>Повтор механики вирусного ролика</b><span>та же энергия и темп, новая ситуация; понятно без звука</span></div></li>
+        <li><div><b>«Когда подруга сказала "я на 5 минут"»</b><span>узнаваемая ситуация, финал — через 2 часа</span></div></li>
+        <li><div><b>«Ожидание: фото как в Pinterest. Реальность:»</b><span>красивый кадр → как это было на самом деле</span></div></li>
+        <li><div><b>«Типы девушек в примерочной»</b><span>ты в 3–4 ролях, быстрый монтаж</span></div></li>
+        <li><div><b>«Когда пытаешься выглядеть дорого, но…»</b><span>споткнулась, ветер, что-то упало</span></div></li>
+        <li><div><b>Рофл на трендовый звук</b><span>берёшь тренд недели и переделываешь под себя</span></div></li>
+      </ul></div>
+      <div class="card"><div class="label">неделя 2</div><ul class="check">
+        <li><div><b>Снова механика вирусного ролика</b><span>в течение недели — минимум 2 таких</span></div></li>
+        <li><div><b>«Как я выгляжу vs как я себя чувствую»</b><span>самоирония на контрасте с внешностью</span></div></li>
+        <li><div><b>«Я и моя совесть в 3 часа ночи»</b><span>диалог с самой собой в двух ролях</span></div></li>
+        <li><div><b>«Когда ты рыжая и тебе в 100-й раз говорят…»</b><span>«а это твой цвет?», «ты на солнце сгоришь»</span></div></li>
+        <li><div><b>«Типичный Ярославль»</b><span>рофл про город — заодно сигнал местным брендам</span></div></li>
+        <li><div><b>«Угадай, чем закончится»</b><span>ситуация с вопросом в конце — для комментариев</span></div></li>
+      </ul></div>
+    </div>
+    <p class="note"><b>Главное правило:</b> если какой-то ролик залетел — в течение 2–3 дней снимай ещё один в той же энергии.</p>
+  </section>
+
+  <div class="final">
+    <div class="label">напоследок</div>
+    <h2>Внешность и вирусный ролик уже есть — <em>не хватает системы</em></h2>
+    <p>Если добавить понятное позиционирование, 2–3 рубрики и развивать формат, который уже дал 10 млн, аккаунт может вырасти заметно быстрее, чем сейчас.</p>
+    <p>А если захочется пройти этот путь не одной — у Маши есть личное менторство. Просто знай, что такая возможность есть 🤍</p>
+  </div>
+</div>
+
+<script>
+const I={
+box:'<path d="M6 15l18-9 18 9v18l-18 9-18-9z"/><path d="M6 15l18 9 18-9M24 24v18"/>',
+cal:'<rect x="6" y="10" width="36" height="31" rx="4"/><line x1="6" y1="19" x2="42" y2="19"/><line x1="16" y1="5" x2="16" y2="13"/><line x1="32" y1="5" x2="32" y2="13"/>',
+smile:'<circle cx="24" cy="24" r="18"/><path d="M16 28q8 7 16 0"/><circle cx="18" cy="19" r="1.5"/><circle cx="30" cy="19" r="1.5"/>',
+camera:'<rect x="5" y="14" width="38" height="26" rx="5"/><circle cx="24" cy="27" r="7"/><path d="M17 14l3-5h8l3 5"/>',
+sun:'<circle cx="24" cy="24" r="8"/><path d="M24 4v6M24 38v6M4 24h6M38 24h6M10 10l4 4M34 34l4 4M38 10l-4 4M14 34l-4 4"/>',
+eye:'<path d="M3 24c7-10 14-14 21-14s14 4 21 14c-7 10-14 14-21 14S10 34 3 24z"/><circle cx="24" cy="24" r="6"/>',
+repeat:'<path d="M8 20a14 14 0 0 1 26-6l4-4v11H27l5-4a10 10 0 0 0-19 4"/><path d="M40 28a14 14 0 0 1-26 6l-4 4V27h11l-5 4a10 10 0 0 0 19-4"/>',
+chat:'<path d="M9 9h30a4 4 0 0 1 4 4v16a4 4 0 0 1-4 4H22l-9 7v-7H9a4 4 0 0 1-4-4V13a4 4 0 0 1 4-4z"/>',
+pen:'<path d="M31 7l10 10-23 23H8V30z"/><line x1="26" y1="12" x2="36" y2="22"/>',
+pin:'<path d="M24 43s14-13 14-24a14 14 0 0 0-28 0c0 11 14 24 14 24z"/><circle cx="24" cy="19" r="5"/>'};
+document.querySelectorAll('.ic[data-i]').forEach(e=>{e.innerHTML='<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">'+I[e.dataset.i]+'</svg>'});
+document.querySelectorAll('#plan .check li').forEach(li=>li.addEventListener('click',()=>li.classList.toggle('done')));
+</script>
+</body>
+</html>
